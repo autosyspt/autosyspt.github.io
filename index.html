@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Car Spot</title>
+  <link rel="icon" type="image/x-icon" href="car-spot2.png">
+  <link rel="stylesheet" href="stylesheet.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+    integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+    crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="script.js"></script>
+  <style>
+    /* Ajustes para o menu hamburguer */
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+    
+    /* Estilo do botão que abre o dropdown */
+    .dropdown-toggle {
+      color: #ff5d00;
+      background-color: transparent;
+      padding: 10px 20px;
+      border: 1px solid #ff5d00;
+      cursor: pointer;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+    
+    /* Estilo da lista do dropdown */
+    .dropdown-menu {
+      display: none; /* Começa oculto */
+      position: absolute;
+      background-color: #ff5d00;
+      min-width: 100%;
+      box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+      border-radius: 5px;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      z-index: 1;
+    }
+    
+    /* Estilo dos itens da lista */
+    .dropdown-menu li {
+      padding: 10px;
+    }
+    
+    .dropdown-menu li a {
+      color: #333;
+      text-decoration: none;
+      display: flex;
+      justify-content: center;
+    }
+    
+    /* Efeito hover nos itens */
+    .dropdown-menu li:hover {
+      background-color: black;
+      
+    }
+    .dropdown-menu li:hover a {
+      color: #ff5d00;;
+    }
+    
+    /* Mostrar o dropdown quando estiver ativo */
+    .dropdown-menu.active {
+      display: block;
+    }
+    #menu-mobile {
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 80%;
+      height: 100%;
+      background-color: #ff5d00;
+      transform: translateX(-10%);
+      transition: transform 2000ms ease;
+      z-index: 999;
+      flex-direction: column-reverse;
+      margin-top: 0;
+      justify-content: flex-end;
+      gap: 50px;
+      align-items: center;
+      color: white;
+      padding-top: 100px;
+    }
+
+    #menu-mobile.open {
+      display: flex;
+      transform: translateX(0);
+    }
+
+    #menu-mobile a {
+      color: white;
+      text-decoration: none;
+      font-size: 1.5rem;
+      margin: 15px 0;
+    }
+
+    #menu-toggle {
+      display: none;
+      position: fixed;
+      overflow: hidden;
+      top: 15px;
+      left: 15px;
+      z-index: 1000;
+      font-size: 2rem;
+      background: none;
+      border: none;
+      color: #ff5d00;
+      cursor: pointer;
+    }
+
+    @media(max-width: 992px) {
+      #menu-toggle {
+        display: block;
+        overflow: hidden;
+      }
+
+      #menu-mobile {
+        position: fixed;
+        height: 100%;
+        overflow: hidden;
+      }
+
+      #menu-mobile .social {
+        display: flex;
+        height: auto;
+        width: 100%;
+        align-items: center;
+        margin-top: 0; /* Reset margin-top */
+        align-self: flex-end;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+
+
+<body>
+  <button id="menu-toggle">☰</button>
+  <div id="menu-mobile">
+
+    <div class="social">
+      <span style="font-size: 30px;">Segue-nos:</span>
+      <a class="instagram" href="https://www.instagram.com//"><img
+          src="https://img.icons8.com/m_outlined/512/40C057/instagram-new.png" alt="instagram"
+          style="width: 2.5em; height: 2.5em"></a>
+    </div>
+    <a href="#">Contactos</a>
+    <a href="servicos.html">Serviços</a>
+    <a href="add-info.html">Adicionar</a>
+    <a href="pesquisar.html">Pesquisar</a>
+    <a href="#">Início</a>
+    <div id="logoMobile">
+      <a href="hindex.html"><img style="width: 200px; height: 100px;" src="car-spot2.png"
+          alt="Logo da Forma Futuro"></a>
+    </div>
+  </div>
+
+  <header class="d-flex justify-content-between align-items-center py-3" id="menu">
+    <!-- Botão hamburguer para mobile (visível apenas em telas pequenas) -->
+    <div class="d-block d-lg-none">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+        aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+    <div class="d-block d-lg-none">
+      <img src="car-spot1.png" alt="Car Spot" width="32" height="32" class="rounded-circle">
+    </div>
+    <div class="leftMenu d-none d-lg-flex">
+      <ul class="nav nav-pills">
+        <li class="nav-item"><a href="#" class="nav-link active" aria-current="page" id="current">Início</a></li>
+        <li class="nav-item"><a href="pesquisar.html" class="nav-link" id="option-menu">Pesquisar</a></li>
+        <li class="nav-item"><a href="add-info.html" class="nav-link" id="option-menu">Adicionar</a></li>
+        <li class="nav-item"><a href="servicos.html" class="nav-link" id="option-menu">Serviços</a></li>
+        <li class="nav-item"><a href="#" class="nav-link" id="option-menu">Contactos</a></li>
+      </ul>
+    </div>
+    <div class="rightMenu d-none d-lg-flex">
+      <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+        <input type="search" class="form-control" id="procuraMenu" placeholder="🔍 Procurar Funcionalidades"
+          aria-label="Search">
+      </form>
+      <div class="dropdown">
+        <button class="dropdown-toggle"><img src="car-spot2.png" class="imagem-user"></button>
+        <ul class="dropdown-menu">
+          <li style="width: 100%;"><a href="formulario.html?login" >Iniciar Sessão</a></li>
+        </ul>
+      </div>
+    </div>
+  </header>
+
+
+  <div id="mid">
+    <div class="container col-xxl-8 px-4 py-5"> <!--heroe apresentacao marca-->
+      <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+        <div class="col-10 col-sm-8 col-lg-6">
+          <img src="car-spot1.png" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="700" height="500"
+            loading="lazy">
+        </div>
+        <div class="col-lg-6">
+          <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">Car Spot</h1>
+          <p class="lead">Toda a informação do mundo dos carros a um 'click' de distância.</p>
+          <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+            <button type="button" class="btn btn-primary btn-lg px-4 me-md-2" id="botaoPesquisar"><a
+                class="a_botaoPesquisar" href="pesquisar.html">Pesquisar</a></button>
+            <button type="button" class="btn btn-outline-secondary btn-lg px-4" id="botaoAdicionar"><a
+                class="a_botaoAdicionar" href="add-info.html">Adicionar</a></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="feedback-carousel-container">
+      <div class="carousel-content">
+        <!-- Controles de navegação -->
+        <button class="nav-arrow nav-arrow-left" id="prevButton" aria-label="Feedback anterior">
+          <svg viewBox="0 0 20 20" focusable="false" aria-hidden="true">
+            <path d="M13.5 14.5 9 10l4.5-4.5L12 4l-6 6 6 6 1.5-1.5z"></path>
+          </svg>
+        </button>
+        <button class="nav-arrow nav-arrow-right" id="nextButton" aria-label="Próximo feedback">
+          <svg viewBox="0 0 20 20" focusable="false" aria-hidden="true">
+            <path d="M6.5 5.5 11 10l-4.5 4.5L8 16l6-6-6-6-1.5 1.5z"></path>
+          </svg>
+        </button>
+
+        <div id="carouselItems"></div>
+
+        <div class="indicator" id="indicator"></div>
+      </div>
+    </div>
+    <div class="container px-4 py-5" id="custom-cards">
+      <h2 class="pb-2 border-bottom">Contacte-nos</h2>
+
+      <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
+        <div class="col" id="card-contacto">
+          <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg"
+            style="background-image: url('unsplash-photo-1.jpg');">
+            <a href="https://wa.me/+351919335070" style="text-decoration: none; color: white;">
+              <h5 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold"
+                style="display: flex; align-items: center; justify-content: space-around;"><img src="whatsapp-icon.png"
+                  alt="Whatsapp" style="width: 50px; height:50px; text-decoration: none; color: white;">Whatsapp</h5>
+            </a>
+          </div>
+        </div>
+
+        <div class="col" id="card-contacto">
+          <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg"
+            style="background-image: url('unsplash-photo-2.jpg');">
+            <a href="https://www.instagram.com/" style="text-decoration: none; color: white;">
+              <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold"
+                style="display: flex; align-items: center; justify-content: space-around;"><img src="instagram-icon.png"
+                  alt="Instagram" style="width: 50px; height:50px;">Instagram</h3>
+            </a>
+          </div>
+        </div>
+
+        <div class="col" id="card-contacto">
+          <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg"
+            style="background-image: url('unsplash-photo-3.jpg');">
+            <a href="https://www.facebook.com/" style="text-decoration: none; color: white;">
+              <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold"
+                style="display: flex; align-items: center; justify-content: space-around;"><img src="facebook-icon.png"
+                  alt="Facebook" style="width: 50px; height:50px;">Facebook</h3>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" id="rodape"> <!--rodape-->
+    <footer class="py-5" style="padding-bottom: 0 !important;">
+      <div class="row">
+        <div class="col-6 col-md-2 mb-3">
+          <h5 style="color: #ff5d00;">Navegação</h5>
+          <ul class="nav flex-column">
+            <li class="nav-item mb-2"><a href="index.html" class="nav-link p-0 text-body-secondary">Início</a></li>
+            <li class="nav-item mb-2"><a href="pesquisar.html" class="nav-link p-0 text-body-secondary">Pesquisar</a>
+            </li>
+            <li class="nav-item mb-2"><a href="add-info.html" class="nav-link p-0 text-body-secondary">Adicionar</a>
+            </li>
+            <li class="nav-item mb-2"><a href="servicos.html" class="nav-link p-0 text-body-secondary">Serviços</a></li>
+          </ul>
+        </div>
+
+        <div class="col-6 col-md-2 mb-3">
+          <h5 style="color: #ff5d00;">Documentação</h5>
+          <ul class="nav flex-column">
+            <li class="nav-item mb-2"><a href="TC.html" class="nav-link p-0 text-body-secondary">Termos e Condições</a>
+            </li>
+            <li class="nav-item mb-2"><a href="PC.html" class="nav-link p-0 text-body-secondary">Políticas de
+                Privacidade</a></li>
+            <li class="nav-item mb-2"><a href="cookies.html" class="nav-link p-0 text-body-secondary">Sobre Cookies</a>
+            </li>
+            <li class="nav-item mb-2"><a href="FAQs.html#pesquisar" class="nav-link p-0 text-body-secondary">Como
+                Utilizar? - Pesquisar</a></li>
+            <li class="nav-item mb-2"><a href="FAQs.html#adicionar" class="nav-link p-0 text-body-secondary">Como
+                Utilizar? - Adicionar</a></li>
+            <li class="nav-item mb-2"><a href="FAQs.html" class="nav-link p-0 text-body-secondary">FAQs</a></li>
+          </ul>
+        </div>
+        <div class="col-md-5 offset-md-1 mb-3">
+          <form method="GET" action="">
+            <h5>Dúvidas Técnicas?</h5>
+            <p>Nós contactamos via email:</p>
+            <div class="d-flex flex-column flex-sm-row w-100 gap-2">
+              <label for="newsletter1" class="visually-hidden">Email address</label>
+              <input id="newsletter1" type="text" class="form-control" placeholder="exemplo@email.com">
+              <button class="btn btn-primary" type="submit" style="background-color: #ff5d00; border:none;"><a
+                  href="mailto:carspot.geral@gmail.com"
+                  style="text-decoration: none; color:white;">Contactem-me</a></button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="d-flex flex-column flex-sm-row justify-content-center py-4 my-4 border-top">
+        <p style="color: #ff5d00;">© 2025 Car Spot, Inc. All rights reserved.</p>
+        <ul class="list-unstyled d-flex">
+          <li class="ms-3"><a class="link-body-emphasis" href="#"><svg class="bi" width="24" height="24">
+                <use xlink:href="#twitter"></use>
+              </svg></a></li>
+          <li class="ms-3"><a class="link-body-emphasis" href="#"><svg class="bi" width="24" height="24">
+                <use xlink:href="#instagram"></use>
+              </svg></a></li>
+          <li class="ms-3"><a class="link-body-emphasis" href="#"><svg class="bi" width="24" height="24">
+                <use xlink:href="#facebook"></use>
+              </svg></a></li>
+        </ul>
+      </div>
+    </footer>
+  </div>
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+  integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+  integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+
+</html>
