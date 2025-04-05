@@ -64,8 +64,7 @@ header {
 /* Ajustes para o header em dispositivos móveis */
 @media (max-width: 991.98px) {
   #menu {
-    width: 100%;
-    padding: 0.5rem 1rem;
+    display: none;
   }
   
   .leftMenu, .rightMenu {
@@ -116,10 +115,9 @@ header {
   width: 40vh;
   border-color: #ff5d00;
 }
-
-#procuraMenu::placeholder {
-  color: #ff5d00;
-  width: 100%;
+#imagem-heroe {
+  display: flex;
+  margin: 0 auto;
 }
 .feedback-carousel-container {
   position: relative;
