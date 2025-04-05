@@ -1,0 +1,477 @@
+/* Estilos gerais */
+header {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  background-color: black;
+}
+
+/* Ajustes para o menu hamburguer */
+.navbar-toggler {
+  border: none;
+  background-color: #ff5d00;
+  padding: 0;
+  display: inline-block;
+}
+
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%23ffffff' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+  width: 1.5em;
+  height: 1.5em;
+  display: inline-block;
+  justify-self: flex-start;
+}
+
+/* Estilos para o menu mobile */
+#navbarCollapse {
+  position: absolute;
+  top: 60px;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background-color: #ff5d00;
+  padding: 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-top: 1px solid #333;
+}
+
+#navbarCollapse .nav-link {
+  padding: 0.8rem 1rem;
+  color: #ff5d00;
+  text-align: center;
+}
+
+#navbarCollapse .nav-link.active {
+  color: white;
+  background-color: #ff5d00;
+  border-radius: 0.375rem;
+}
+
+#navbarCollapse .form-control {
+  background-color: black;
+  border-color: #ff5d00;
+  color: white;
+}
+
+#navbarCollapse .form-control::placeholder {
+  color: #ff5d00;
+}
+
+/* Garantir que o menu é exibido apenas em telas pequenas */
+@media (min-width: 992px) {
+  #navbarCollapse {
+    display: none !important;
+  }
+}
+
+/* Ajustes para o header em dispositivos móveis */
+@media (max-width: 991.98px) {
+  #menu {
+    display: none;
+  }
+  
+  .leftMenu, .rightMenu {
+    display: none !important;
+  }
+}
+#menu {
+  width: 100%;
+  justify-self: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#current {
+  background-color: #ff5d00;
+}
+#current a {
+  color: white;
+}
+#option-menu {
+  color: #ff5d00;
+}
+
+.leftMenu {
+  width: 50%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.rightMenu {
+  width: 50%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.imagem-user{
+  width: 50px;
+  height: auto;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 15px;
+  flex-shrink: 0;
+}
+
+#procuraMenu {
+  background-color: black;
+  width: 40vh;
+  border-color: #ff5d00;
+}
+
+/* Estilos do menu mobile */
+#menu-mobile {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 80%;
+  height: 100%;
+  background-color: #ff5d00;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+  z-index: 999;
+  flex-direction: column-reverse;
+  margin-top: 0;
+  justify-content: space-around;
+  align-items: center;
+  color: white;
+  padding-top: 100px;
+  overflow: hidden;
+}
+
+#menu-mobile.open {
+  display: flex;
+  transform: translateX(0);
+}
+
+#menu-mobile a {
+  color: white;
+  text-decoration: none;
+  font-size: 1.5rem;
+  margin: 15px 0;
+}
+
+#menu-toggle {
+  display: none;
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  z-index: 1000;
+  font-size: 2rem;
+  background: none;
+  border: none;
+  color: #ff5d00;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+#menu-mobile .social {
+  display: flex;
+  height: auto;
+  width: 100%;
+  align-items: center;
+  align-self: flex-end;
+  justify-content: center;
+}
+
+#logoMobile {
+  margin-bottom: 20px;
+}
+
+/* Estilos dropdown */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  right: 0;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-menu.show {
+  display: block;
+}
+
+.dropdown-menu a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-menu a:hover {
+  background-color: #f1f1f1;
+}
+
+/* Estilos conteúdo principal */
+#mid {
+  padding: 20px;
+}
+
+#mid h1 {
+  text-align: center;
+  margin: 30px 0;
+  color: #ff5d00;
+  font-weight: bold;
+}
+
+/* Estilos formulário de pesquisa */
+.pesquisa {
+  max-width: 800px;
+  margin: 0 auto 30px;
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.pesquisa form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.pesquisa label {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.pesquisa select, .pesquisa input {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-right: 10px;
+  flex-grow: 1;
+}
+
+.pesquisa button {
+  padding: 10px 20px;
+  background-color: #ff5d00;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.pesquisa button:hover {
+  background-color: #e65200;
+}
+
+/* Estilos container info */
+.container-info {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.top-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.text-box {
+  background-color: #f9f9f9;
+  padding: 10px 15px;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.text-box p {
+  margin: 0;
+  font-weight: bold;
+}
+
+.container-info-mid {
+  display: flex;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.imagem-modelo {
+  flex: 0 0 300px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+}
+
+.imagem-modelo img {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+  object-fit: cover;
+}
+
+.info-detalhes {
+  flex: 1;
+  min-width: 250px;
+}
+
+/* Estilos histórico */
+.historico {
+  margin-top: 20px;
+}
+
+.historico > p {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.filtros-intervencao {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.filtros-intervencao li {
+  display: flex;
+  align-items: center;
+  margin-right: 15px;
+}
+
+.filtros-intervencao input[type="checkbox"] {
+  margin-right: 5px;
+}
+
+.container-intervencoes {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 15px;
+  margin-top: 10px;
+}
+
+.container-intervencoes legend {
+  font-weight: bold;
+  padding: 0 10px;
+}
+
+/* Estilos para as intervenções */
+.intervencao-item {
+  margin-bottom: 15px;
+  padding: 15px;
+  background-color: #f9f9f9;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.intervencao-data {
+  font-weight: bold;
+  color: #ff5d00;
+}
+
+.intervencao-tipo {
+  font-style: italic;
+  color: #666;
+}
+
+.intervencao-descricao {
+  margin-top: 5px;
+}
+
+.intervencao-tecnico {
+  margin-top: 5px;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+/* Estilos rodapé */
+#rodape {
+  background-color: #333;
+  color: white;
+  margin-top: 50px;
+}
+
+#rodape h5 {
+  color: #ff5d00;
+}
+
+#rodape a {
+  color: #ddd;
+  text-decoration: none;
+}
+
+#rodape a:hover {
+  color: #ff5d00;
+}
+
+/* Media queries */
+@media(max-width: 992px) {
+  #menu {
+    display: none;
+  }
+
+  #menu-toggle {
+    display: block;
+  }
+  
+  #menu-mobile {
+    position: fixed;
+    height: 100%;
+    overflow: hidden;
+  }
+  
+  #menu-mobile .social {
+    display: flex;
+    height: auto;
+    width: 100%;
+    align-items: center;
+    margin-top: 0;
+    align-self: flex-end;
+    justify-content: center;
+  }
+
+  .top-info, .container-info-mid {
+    flex-direction: column;
+  }
+
+  .text-box {
+    width: 100%;
+  }
+
+  .imagem-modelo {
+    margin-right: 0;
+    width: 100%;
+  }
+}
+
+@media(max-width: 768px) {
+  .filtros-intervencao {
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+  .filtros-intervencao li {
+    margin-right: 0;
+  }
+  
+  .pesquisa form {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .pesquisa select, .pesquisa input, .pesquisa button {
+    width: 100%;
+    margin-right: 0;
+  }
+}
