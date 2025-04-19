@@ -417,3 +417,34 @@ header {
   90% { opacity: 1; }
   100% { opacity: 0; }
 }
+/* Adicione estas regras no final do arquivo */
+
+/* Estilos para fixar o rodapé na parte inferior */
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+#mid {
+  flex: 1 0 auto;
+  min-height: calc(100vh - 150px); /* Ajuste conforme a altura do seu header e footer */
+  padding-bottom: 30px;
+}
+
+#rodape {
+  flex-shrink: 0;
+  width: 100%;
+  bottom: 0;
+}
+
+/* Para dispositivos móveis */
+@media (max-width: 768px) {
+  #mid {
+    min-height: calc(100vh - 200px); /* Ajuste para dispositivos móveis se necessário */
+  }
+}

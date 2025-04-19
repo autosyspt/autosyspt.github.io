@@ -1,5 +1,101 @@
-// Continuação do código do arquivo admin.js
+// Adicione este código ao final do seu arquivo admin.js:
 
+// Adicionar event listeners quando o DOM estiver carregado
+document.addEventListener('DOMContentLoaded', function() {
+    // Verificar se o usuário está logado e é admin
+    verificarAdmin();
+    verificarUsuarioLogado();
+    
+    // Carregar dados iniciais
+    carregarVeiculos();
+    
+    // Event listeners para botões de nova entidade
+    const btnNovoVeiculo = document.getElementById('btn-novo-veiculo');
+    const btnNovaIntervencao = document.getElementById('btn-nova-intervencao');
+    const btnNovoUsuario = document.getElementById('btn-novo-usuario');
+    
+    if (btnNovoVeiculo) {
+        btnNovoVeiculo.addEventListener('click', () => abrirModalVeiculo());
+    }
+    
+    if (btnNovaIntervencao) {
+        btnNovaIntervencao.addEventListener('click', () => abrirModalIntervencao());
+    }
+    
+    if (btnNovoUsuario) {
+        btnNovoUsuario.addEventListener('click', () => abrirModalUsuario());
+    }
+    
+    // Event listeners para botões de salvar
+    const btnSalvarVeiculo = document.getElementById('btn-salvar-veiculo');
+    const btnSalvarIntervencao = document.getElementById('btn-salvar-intervencao');
+    const btnSalvarUsuario = document.getElementById('btn-salvar-usuario');
+    
+    if (btnSalvarVeiculo) {
+        btnSalvarVeiculo.addEventListener('click', salvarVeiculo);
+    }
+    
+    if (btnSalvarIntervencao) {
+        btnSalvarIntervencao.addEventListener('click', salvarIntervencao);
+    }
+    
+    if (btnSalvarUsuario) {
+        btnSalvarUsuario.addEventListener('click', salvarUsuario);
+    }
+    
+    // Event listeners para abas (tabs)
+    const veiculosTab = document.getElementById('veiculos-tab');
+    const intervencoesTab = document.getElementById('intervencoes-tab');
+    const usuariosTab = document.getElementById('usuarios-tab');
+    
+    if (veiculosTab) {
+        veiculosTab.addEventListener('click', () => carregarVeiculos());
+    }
+    
+    if (intervencoesTab) {
+        intervencoesTab.addEventListener('click', () => carregarIntervencoes());
+    }
+    
+    if (usuariosTab) {
+        usuariosTab.addEventListener('click', () => carregarUsuarios());
+    }
+    
+    // Event listeners para campos de pesquisa
+    const pesquisaVeiculo = document.getElementById('pesquisa-veiculo');
+    const pesquisaIntervencao = document.getElementById('pesquisa-intervencao');
+    const pesquisaUsuario = document.getElementById('pesquisa-usuario');
+    
+    if (pesquisaVeiculo) {
+        pesquisaVeiculo.addEventListener('input', debounce(function() {
+            carregarVeiculos(1, this.value);
+        }, 500));
+    }
+    
+    if (pesquisaIntervencao) {
+        pesquisaIntervencao.addEventListener('input', debounce(function() {
+            carregarIntervencoes(1, this.value);
+        }, 500));
+    }
+    
+    if (pesquisaUsuario) {
+        pesquisaUsuario.addEventListener('input', debounce(function() {
+            carregarUsuarios(1, this.value);
+        }, 500));
+    }
+});
+
+// Função utilitária para debounce (evitar muitas requisições durante digitação)
+function debounce(func, wait) {
+    let timeout;
+    return function() {
+        const context = this;
+        const args = arguments;
+        clearTimeout(timeout);
+        timeout = setTimeout(() => {
+            func.apply(context, args);
+        }, wait);
+    };
+}
 // Event listener para botão de logout
 const btnLogout = document.getElementById('btn-logout');
 const btnMobileLogout = document.getElementById('btn-mobile-logout');
@@ -45,7 +141,7 @@ function fazerLogout() {
 async function carregarVeiculos(pagina = 1, termoPesquisa = '') {
     try {
         const token = localStorage.getItem('token');
-        let url = `api/veiculos?pagina=${pagina}`;
+        let url = `/api/veiculos?pagina=${pagina}`;
         
         if (termoPesquisa) {
             url += `&pesquisa=${encodeURIComponent(termoPesquisa)}`;
@@ -76,7 +172,7 @@ async function carregarVeiculos(pagina = 1, termoPesquisa = '') {
 async function carregarIntervencoes(pagina = 1, termoPesquisa = '') {
     try {
         const token = localStorage.getItem('token');
-        let url = `api/intervencoes?pagina=${pagina}`;
+        let url = `/api/intervencoes?pagina=${pagina}`;
         
         if (termoPesquisa) {
             url += `&pesquisa=${encodeURIComponent(termoPesquisa)}`;
@@ -104,7 +200,7 @@ async function carregarIntervencoes(pagina = 1, termoPesquisa = '') {
 async function carregarUsuarios(pagina = 1, termoPesquisa = '') {
     try {
         const token = localStorage.getItem('token');
-        let url = `api/usuarios?pagina=${pagina}`;
+        let url = `/api/usuarios?pagina=${pagina}`;
         
         if (termoPesquisa) {
             url += `&pesquisa=${encodeURIComponent(termoPesquisa)}`;
@@ -341,7 +437,7 @@ function abrirModalUsuario(id = null) {
 async function carregarDadosVeiculo(id) {
     try {
         const token = localStorage.getItem('token');
-        const response = await fetch(`api/veiculos/${id}`, {
+        const response = await fetch(`/api/veiculos/${id}`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -372,7 +468,7 @@ async function carregarDadosVeiculo(id) {
 async function carregarDadosIntervencao(id) {
     try {
         const token = localStorage.getItem('token');
-        const response = await fetch(`api/intervencoes/${id}`, {
+        const response = await fetch(`/api/intervencoes/${id}`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -399,7 +495,7 @@ async function carregarDadosIntervencao(id) {
 async function carregarDadosUsuario(id) {
     try {
         const token = localStorage.getItem('token');
-        const response = await fetch(`api/usuarios/${id}`, {
+        const response = await fetch(`/api/usuarios/${id}`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -443,7 +539,7 @@ async function salvarVeiculo() {
             jante: document.getElementById('veiculo-jante').value || null
         };
         
-        const url = id ? `api/veiculos/${id}` : 'api/veiculos';
+        const url = id ? `/api/veiculos/${id}` : '/api/veiculos';
         const method = id ? 'PUT' : 'POST';
         
         const response = await fetch(url, {
@@ -485,7 +581,7 @@ async function salvarIntervencao() {
             descricao: document.getElementById('intervencao-descricao').value
         };
         
-        const url = id ? `api/intervencoes/${id}` : 'api/intervencoes';
+        const url = id ? `/api/intervencoes/${id}` : '/api/intervencoes';
         const method = id ? 'PUT' : 'POST';
         
         const response = await fetch(url, {
@@ -532,7 +628,7 @@ async function salvarUsuario() {
             usuario.senha = senha;
         }
         
-        const url = id ? `api/usuarios/${id}` : 'api/usuarios';
+        const url = id ? `/api/usuarios/${id}` : '/api/usuarios';
         const method = id ? 'PUT' : 'POST';
         
         const response = await fetch(url, {
@@ -583,13 +679,13 @@ async function excluirItem(tipo, id) {
         
         switch (tipo) {
             case 'veiculo':
-                url = `api/veiculos/${id}`;
+                url = `/api/veiculos/${id}`;
                 break;
             case 'intervencao':
-                url = `api/intervencoes/${id}`;
+                url = `/api/intervencoes/${id}`;
                 break;
             case 'usuario':
-                url = `api/usuarios/${id}`;
+                url = `/api/usuarios/${id}`;
                 break;
             default:
                 throw new Error('Tipo inválido');

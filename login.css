@@ -1,0 +1,90 @@
+/* Estilos para a página de login */
+
+.login-card {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  margin-bottom: 50px;
+}
+
+.login-header {
+  background-color: #ff5d00;
+  color: white;
+  padding: 30px 25px;
+  text-align: center;
+}
+
+.login-header h2 {
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.login-header p {
+  margin-bottom: 0;
+  opacity: 0.9;
+}
+
+.login-body {
+  padding: 30px 25px;
+}
+
+.login-footer {
+  padding: 0 25px 30px;
+  color: #6c757d;
+}
+
+.form-label {
+  font-weight: 500;
+  color: #444;
+}
+
+.input-group-text {
+  background-color: #f8f9fa;
+  color: #ff5d00;
+}
+
+.btn-primary {
+  background-color: #ff5d00;
+  border-color: #ff5d00;
+  font-weight: 500;
+  padding: 10px;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #e05400;
+  border-color: #e05400;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255, 93, 0, 0.3);
+}
+
+.btn-outline-secondary {
+  color: #6c757d;
+  border-color: #ced4da;
+}
+
+.btn-outline-secondary:hover {
+  background-color: #f8f9fa;
+  color: #6c757d;
+}
+
+.form-check-input:checked {
+  background-color: #ff5d00;
+  border-color: #ff5d00;
+}
+
+a {
+  color: #ff5d00;
+  transition: color 0.2s;
+}
+
+a:hover {
+  color: #e05400;
+}
+
+@media (max-width: 768px) {
+  .login-card {
+      margin: 0 15px 30px;
+  }
+}

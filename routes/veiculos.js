@@ -40,8 +40,75 @@ router.get('/', auth, async (req, res) => {
       paginaAtual: pagina
     });
   } catch (error) {
-    console.error('Erro ao buscar veículos:', error);
-    res.status(500).json({ mensagem: 'Erro ao buscar veículos' });
+    console.error('ERRO DETALHADO AO BUSCAR VEÍCULOS:', error);
+    res.status(500).json({ mensagem: 'Erro ao buscar veículos', erro: error.message });
+  }
+});
+router.get('/pesquisar', async (req, res) => {
+  try {
+    const { tipo, termo } = req.query;
+    
+    if (!tipo || !termo) {
+      return res.status(400).json({ erro: true, mensagem: 'Tipo e termo de pesquisa são obrigatórios' });
+    }
+    
+    let query;
+    let params;
+    
+    switch (tipo) {
+      case 'matricula':
+        query = `
+          SELECT * FROM veiculos
+          WHERE matricula LIKE ?
+        `;
+        params = [`%${termo}%`];
+        break;
+      case 'marca':
+        query = `
+          SELECT * FROM veiculos
+          WHERE marca LIKE ?
+        `;
+        params = [`%${termo}%`];
+        break;
+      case 'vin':
+        query = `
+          SELECT * FROM veiculos
+          WHERE vin LIKE ?
+        `;
+        params = [`%${termo}%`];
+        break;
+      default:
+        return res.status(400).json({ erro: true, mensagem: 'Tipo de pesquisa inválido' });
+    }
+    
+    // Executar a query principal
+    const [veiculos] = await pool.execute(query, params);
+    
+    if (veiculos.length === 0) {
+      return res.status(404).json({ erro: true, mensagem: 'Veículo não encontrado' });
+    }
+    
+    // Obter o primeiro veículo (mais relevante)
+    const veiculo = veiculos[0];
+    
+    // Buscar intervenções deste veículo
+    const [intervencoes] = await pool.execute(
+      `SELECT i.*, u.nome as tecnico_nome
+       FROM intervencoes i
+       LEFT JOIN usuarios u ON i.tecnico_id = u.id
+       WHERE i.veiculo_id = ?
+       ORDER BY i.data_inicio DESC`,
+      [veiculo.id]
+    );
+    
+    res.json({
+      veiculo,
+      intervencoes
+    });
+    
+  } catch (error) {
+    console.error('Erro na pesquisa de veículo:', error);
+    res.status(500).json({ erro: true, mensagem: 'Erro ao processar a pesquisa' });
   }
 });
 
