@@ -1,83 +1,99 @@
-CREATE DATABASE IF NOT EXISTS autosys;
-USE autosys;
 
--- Tabela de usuários
-CREATE TABLE IF NOT EXISTS usuarios (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  nome VARCHAR(100) NOT NULL,
-  email VARCHAR(100) NOT NULL UNIQUE,
-  senha VARCHAR(255) NOT NULL,
-  funcao ENUM('admin', 'tecnico', 'recepcao', 'visualizador') DEFAULT 'visualizador',
-  ativo BOOLEAN DEFAULT true,
-  data_criacao DATETIME DEFAULT CURRENT_TIMESTAMP,
-  ultimo_acesso DATETIME NULL,
-  reset_token VARCHAR(255) NULL,
-  reset_expiracao DATETIME NULL,
-  imagem VARCHAR(255) NULL
-);
+CREATE SCHEMA IF NOT EXISTS `autosyspt` DEFAULT CHARACTER SET utf8mb4 ;
+USE `autosyspt` ;
 
--- Tabela de veículos
-CREATE TABLE IF NOT EXISTS veiculos (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  marca VARCHAR(50) NOT NULL,
-  modelo VARCHAR(100) NOT NULL,
-  ano INT NULL,
-  cor VARCHAR(30) NULL,
-  matricula VARCHAR(20) NOT NULL UNIQUE,
-  vin VARCHAR(50) NULL,
-  imagem VARCHAR(255) NULL,
-  pneus VARCHAR(50) NULL,
-  jante VARCHAR(50) NULL,
-  km INT DEFAULT 0,
-  data_cadastro DATETIME DEFAULT CURRENT_TIMESTAMP
-);
+SELECT * FROM Usr;
 
--- Tabela de intervenções
-CREATE TABLE IF NOT EXISTS intervencoes (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  veiculo_id INT NOT NULL,
-  tecnico_id INT NULL,
-  descricao TEXT NOT NULL,
-  diagnostico TEXT NULL,
-  data_inicio DATE NOT NULL,
-  data_fim DATE NULL,
-  status VARCHAR(20) DEFAULT 'Pendente',
-  km_atual INT DEFAULT 0,
-  observacoes TEXT NULL,
-  custo_total DECIMAL(10,2) DEFAULT 0.00,
-  data_cadastro DATETIME DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (veiculo_id) REFERENCES veiculos(id),
-  FOREIGN KEY (tecnico_id) REFERENCES usuarios(id) ON DELETE SET NULL
-);
 
--- Tabela de serviços
-CREATE TABLE IF NOT EXISTS servicos (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  intervencao_id INT NOT NULL,
-  nome VARCHAR(100) NOT NULL,
-  descricao TEXT NULL,
-  valor DECIMAL(10,2) NOT NULL DEFAULT 0.00,
-  FOREIGN KEY (intervencao_id) REFERENCES intervencoes(id) ON DELETE CASCADE
-);
+CREATE TABLE IF NOT EXISTS `autosyspt`.`carro` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `modelo` VARCHAR(50) NULL DEFAULT NULL,
+  `marca` VARCHAR(50) NULL DEFAULT NULL,
+  `ano` YEAR(4) NULL DEFAULT NULL,
+  `cor` VARCHAR(50) NULL DEFAULT NULL,
+  `pneus` VARCHAR(50) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
 
--- Tabela de peças
-CREATE TABLE IF NOT EXISTS pecas (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  intervencao_id INT NOT NULL,
-  nome VARCHAR(100) NOT NULL,
-  quantidade INT NOT NULL DEFAULT 1,
-  valor_unitario DECIMAL(10,2) NOT NULL DEFAULT 0.00,
-  FOREIGN KEY (intervencao_id) REFERENCES intervencoes(id) ON DELETE CASCADE
-);
+CREATE TABLE IF NOT EXISTS `autosyspt`.`usr` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `email` VARCHAR(200) NOT NULL,
+  `nome` VARCHAR(200) NULL DEFAULT NULL,
+  `palavra` VARCHAR(100) NULL DEFAULT NULL,
+  `permissao` ENUM('user', 'mec', 'manager') NOT NULL DEFAULT 'user',
+  `imagem` VARCHAR(500) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `email` (`email` ASC) VISIBLE)
+ENGINE = InnoDB
+AUTO_INCREMENT = 4
+DEFAULT CHARACTER SET = utf8mb4;
 
--- Inserir usuário admin padrão (senha: admin123)
-INSERT INTO usuarios (nome, email, senha, funcao, ativo) 
-VALUES ('Administrador', 'admin@autosys.com', '$2b$10$9D9xYE.hITrRKuYgZ6sH9.4baTbPGCJ7S6O8JZN6n44QyDFBzP9a.', 'admin', true)
-ON DUPLICATE KEY UPDATE id=id;
 
--- Inserir alguns veículos e intervenções de exemplo
-INSERT INTO veiculos (marca, modelo, ano, cor, matricula, pneus, jante) VALUES
-('Toyota', 'Corolla', 2020, 'Branco', 'AA-11-BB', '205/55R16', '16'),
-('BMW', 'X5', 2019, 'Preto', 'CC-22-DD', '255/50R19', '19'),
-('Audi', 'A4', 2021, 'Cinza', 'EE-33-FF', '225/45R17', '17')
-ON DUPLICATE KEY UPDATE id=id;
+-- -----------------------------------------------------
+-- Table `autosyspt`.`mec`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `autosyspt`.`mec` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `usr_id` INT(11) NOT NULL,
+  `especialidade` VARCHAR(100) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `usr_id` (`usr_id` ASC) VISIBLE,
+  CONSTRAINT `mec_ibfk_1`
+    FOREIGN KEY (`usr_id`)
+    REFERENCES `autosyspt`.`usr` (`id`)
+    ON DELETE CASCADE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
+
+
+-- -----------------------------------------------------
+-- Table `autosyspt`.`intervencao`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `autosyspt`.`intervencao` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `carro_id` INT(11) NOT NULL,
+  `mec_id` INT(11) NULL DEFAULT NULL,
+  `nome` VARCHAR(200) NULL DEFAULT NULL,
+  `descricao` TEXT NULL DEFAULT NULL,
+  `data_inter` DATE NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `carro_id` (`carro_id` ASC) VISIBLE,
+  INDEX `mec_id` (`mec_id` ASC) VISIBLE,
+  CONSTRAINT `intervencao_ibfk_1`
+    FOREIGN KEY (`carro_id`)
+    REFERENCES `autosyspt`.`carro` (`id`)
+    ON DELETE CASCADE,
+  CONSTRAINT `intervencao_ibfk_2`
+    FOREIGN KEY (`mec_id`)
+    REFERENCES `autosyspt`.`mec` (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
+
+
+-- -----------------------------------------------------
+-- Table `autosyspt`.`manager`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `autosyspt`.`manager` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `usr_id` INT(11) NOT NULL,
+  `nivel` VARCHAR(50) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `usr_id` (`usr_id` ASC) VISIBLE,
+  CONSTRAINT `manager_ibfk_1`
+    FOREIGN KEY (`usr_id`)
+    REFERENCES `autosyspt`.`usr` (`id`)
+    ON DELETE CASCADE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+
+UPDATE Usr
+SET palavra = '$2y$10$zvK4qKZK0Jtqf9vQDezLmeUWDo9TZxXYpG5NQqTPtv5nHXAO30h8O'
+WHERE email = 'utilizador@email.com';
+

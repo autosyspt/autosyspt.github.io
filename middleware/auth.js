@@ -3,7 +3,6 @@ require('dotenv').config();
 
 module.exports = (req, res, next) => {
   try {
-    // Obter token do header
     const token = req.headers.authorization?.split(' ')[1];
     
     if (!token) {
@@ -13,7 +12,6 @@ module.exports = (req, res, next) => {
     // Verificar token
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     
-    // Adicionar informações do usuário à requisição
     req.usuario = {
       id: decoded.id,
       email: decoded.email,
