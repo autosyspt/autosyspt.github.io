@@ -5,8 +5,12 @@ USE `autosyspt` ;
 SELECT * FROM Usr;
 
 
+
 CREATE TABLE IF NOT EXISTS `autosyspt`.`carro` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
+  matricula VARCHAR(10) NOT NULL,
+  vin INT(15),
+  imagem VARCHAR(200),
   `modelo` VARCHAR(50) NULL DEFAULT NULL,
   `marca` VARCHAR(50) NULL DEFAULT NULL,
   `ano` YEAR(4) NULL DEFAULT NULL,

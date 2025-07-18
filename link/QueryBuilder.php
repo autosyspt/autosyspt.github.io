@@ -86,6 +86,14 @@ class QueryBuilder
         return $this;
     }
 
+    public function offset(int $offset): static
+    {
+
+        $this->query .= " OFFSET $offset";
+
+        return $this;
+    }
+
     public function order(string $column_name, string $direction = 'ASC'): static
     {
 
@@ -154,9 +162,7 @@ class QueryBuilder
         $set = implode(', ', array_map(fn($col) => "$col = :$col", array_keys($data)));
 
         $this->query = "UPDATE {$this->table} SET $set";
-
         foreach ($data as $key => $value) {
-
             $this->bindings[":$key"] = $value;
         }
 

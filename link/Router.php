@@ -41,12 +41,14 @@ class Router
             if ($method === $route['method'] && preg_match($route['regex'], $uri, $m)) {
                 $args = [];
                 foreach ($route['vars'] as $v) $args[] = $m[$v];
-                echo json_encode(($route['handler'])(...$args));
+                ($route['handler'])(...$args);
                 return;
             }
         }
 
         http_response_code(404);
+        // Log only when 404 occurs to help debug
+        error_log("404 Not Found: $method $uri");
         echo json_encode(['error' => 'Not found']);
     }
 }

@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         setTimeout(() => {
           window.location.href = "login.html";
-        }, 2000);
+        }, 2500);
       } else {
         alertError.textContent = json.error || "Erro ao criar conta.";
         alertError.classList.remove("d-none");

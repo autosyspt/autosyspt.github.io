@@ -6,12 +6,34 @@
     <title>AutoSys - Painel de Administração</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/stylesAdmin.css">
+    <style>
+        .pagination-info {
+            font-size: 0.875rem;
+            color: #6c757d;
+        }
+        .pagination-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 1rem;
+        }
+        .pagination {
+            margin: 0;
+        }
+        .page-link {
+            color: #007bff;
+        }
+        .page-item.active .page-link {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+    </style>
 </head>
 <body>
     <!-- Header -->
     <header class="py-2">
         <div class="container d-flex justify-content-between align-items-center">
-            <img src="logo.png" alt="Logo" height="40">
+            <img src="imagens/icon.png" alt="Logo" height="40">
             <div id="menu">
                 <div class="leftMenu">
                     <ul class="nav">
@@ -26,7 +48,7 @@
                 <div class="rightMenu">
                     <div class="dropdown">
                         <button class="dropdown-toggle">
-                            <img src="user-icon.png" alt="Usuário" class="imagem-user">
+                            <img src="imagens/icon.png" alt="Usuário" class="imagem-user">
                         </button>
                         <ul class="dropdown-menu">
                             <li><a href="perfil.html">Meu Perfil</a></li>
@@ -40,7 +62,7 @@
             <button id="menu-toggle">☰</button>
             <div id="menu-mobile">
                 <div class="mb-3">
-                    <img src="logo.png" alt="Logo" id="logoMobile" height="30">
+                    <img src="imagens/icon.png" alt="Logo" id="logoMobile" height="30">
                 </div>
                 <a href="index.html">Início</a>
                 <a href="admin.html">Administração</a>
@@ -73,7 +95,7 @@
             </li>
             <li class="nav-item" role="presentation">
                 <button class="nav-link" id="usuarios-tab" data-bs-toggle="tab" data-bs-target="#usuarios" type="button" role="tab">
-                    Usuários
+                    Equipa
                 </button>
             </li>
         </ul>
@@ -131,8 +153,8 @@
                                 <th>ID</th>
                                 <th>Veículo</th>
                                 <th>Data</th>
-                                <th>Tipo</th>
-                                <th>Técnico</th>
+                                <th>Nome da Intervenção</th>
+                                <th>Descrição</th>
                                 <th>Ações</th>
                             </tr>
                         </thead>
@@ -165,7 +187,7 @@
                                 <th>ID</th>
                                 <th>Nome</th>
                                 <th>Email</th>
-                                <th>Função</th>
+                                <th>Permissão</th>
                                 <th>Data de Cadastro</th>
                                 <th>Ações</th>
                             </tr>
@@ -277,19 +299,12 @@
                         </div>
                         <div class="row mb-3">
                             <div class="col-md-6">
-                                <label for="intervencao-tipo" class="form-label">Tipo</label>
-                                <select class="form-select" id="intervencao-tipo" required>
-                                    <option value="">Selecione um tipo</option>
-                                    <option value="Manutenção Preventiva">Manutenção Preventiva</option>
-                                    <option value="Manutenção Corretiva">Manutenção Corretiva</option>
-                                    <option value="Serviços Elétricos e Eletrônicos">Serviços Elétricos e Eletrônicos</option>
-                                    <option value="Serviços de Funilaria e Pintura">Serviços de Funilaria e Pintura</option>
-                                    <option value="Serviços de Ar-condicionado">Serviços de Ar-condicionado</option>
-                                </select>
+                                <label for="intervencao-tipo" class="form-label">Nome da Intervenção</label>
+                                <input type="text" class="form-control" id="intervencao-tipo" required placeholder="Ex: Manutenção Preventiva">
                             </div>
                             <div class="col-md-6">
-                                <label for="intervencao-tecnico" class="form-label">Técnico</label>
-                                <input type="text" class="form-control" id="intervencao-tecnico" required>
+                                <label for="intervencao-tecnico" class="form-label">Técnico (ID)</label>
+                                <input type="number" class="form-control" id="intervencao-tecnico" placeholder="ID do técnico (opcional)">
                             </div>
                         </div>
                         <div class="mb-3">
@@ -331,11 +346,11 @@
                             <small class="form-text text-muted">Deixe em branco para manter a senha atual (ao editar).</small>
                         </div>
                         <div class="mb-3">
-                            <label for="usuario-funcao" class="form-label">Função</label>
+                            <label for="usuario-funcao" class="form-label">Permissão</label>
                             <select class="form-select" id="usuario-funcao" required>
-                                <option value="admin">Administrador</option>
-                                <option value="tecnico">Técnico</option>
-                                <option value="usuario">Usuário Regular</option>
+                                <option value="user">Usuário</option>
+                                <option value="mec">Técnico</option>
+                                <option value="manager">Gestor</option>
                             </select>
                         </div>
                         <div class="mb-3">
@@ -404,7 +419,6 @@
 
     <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-    <script src="js/api.js"></script>
     <script src="js/admin.js"></script>
 </body>
 </html>
